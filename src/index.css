@@ -1,1 +1,30 @@
 @import "tailwindcss";
+
+
+
+
+/* primary color : #FF0070 */
+
+
+/* common section */
+
+.primary_text_color {
+    @apply text-[#FF0070]
+}
+
+.primary_bg_color {
+    @apply bg-[#FF0070]
+}
+
+
+.primary_btn{
+    @apply bg-[#FF0070] text-white font-semibold px-6 py-2 capitalize text-lg rounded-md
+}
+
+
+
+/*  */
+
+.form_error {
+    @apply text-base lowercase mb-2 text-red-700
+}
