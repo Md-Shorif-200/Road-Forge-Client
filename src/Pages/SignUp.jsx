@@ -1,8 +1,9 @@
 import React, { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { FaEye, FaEyeSlash } from 'react-icons/fa';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import img_1 from '../assets/form_img.png'
+import useAuth from '../Hooks/useAuth';
 
 const SignUp = () => {
      const {
@@ -12,20 +13,48 @@ const SignUp = () => {
     formState: { errors,isSubmitting },
   } = useForm();
 
+  // call context api
+  const {user,creatUser} = useAuth()
 
-//   password toogle icon
+  const [loading,setLoading] = useState(true)
   const [showPassword,setshowPassword] = useState(false);
+  const navigate = useNavigate();
 
-  console.log(showPassword);
+ 
+  
   
 
 
 //   form submit function
 
-const onsubmit = (data) => {
-      console.log(data);
+const onsubmit = async(data) => {
 
-      reset()
+  // user Info
+  const userInfo = {
+      name :data.name,
+      email : data.email,
+      photoUrl: data.profilePhoto
+  }
+
+  try {
+        const result = await creatUser(data.email,data.password)   ;
+        reset();
+        navigate('/');
+        alert('Sign Up Succssfully')
+  } catch (error) {
+    console.log(error);
+    
+  }
+
+
+
+
+
+  console.log(data);
+  
+ 
+reset()
+
       
 }
 
@@ -43,7 +72,7 @@ const onsubmit = (data) => {
                                           <div>
                                             <label htmlFor="" className='block font-semibold capitalize'>Full Name</label>
                                             <input type="text" {...register('name',{required : 'Name is Required'})} 
-                                             className='w-full px-3 py-2 mt-3 mb-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-red-400'
+                                             className='w-full px-3 py-2  '
                                              placeholder='Enter Your Name'
                                             />
 
@@ -54,13 +83,9 @@ const onsubmit = (data) => {
                                              {/* email */}
                                           <div>
                                             <label htmlFor="" className='block font-semibold capitalize'>Email</label>
-                                            <input type="email" {...register('email',{required : 'email is Required',
-                                                 pattern : {
-                                                    value : /^\S+@\S+$/i,
-                                                    message :  "Invalid Eamil Address"
-                                                 }
+                                            <input type="email" {...register('email',{required : 'email is Required'
                                             })} 
-                                             className='w-full px-3 py-2 mt-3 mb-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-red-400'
+                                             className='w-full px-3 py-2  '
                                              placeholder='Enter Email Adress'
                                             />
 
@@ -78,13 +103,13 @@ const onsubmit = (data) => {
 
                                             }
                                         })} 
-                                             className='w-full px-3 py-2 mt-3 mb-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-red-400'
+                                             className='w-full px-3 py-2  '
                                              placeholder='Enter Strong password '
                                             />
 
                                             {errors.password && <p className='form_error'>{errors.password.message} </p>}
 
-                                                    <div className="password_toggle_icon absolute top-7/12 right-1/12" onClick={()=> setshowPassword(!showPassword)}>
+                                                    <div className="password_toggle_icon absolute top-1/2 right-3 cursor-pointer" onClick={()=> setshowPassword(!showPassword)}>
                                                             {
                                                                 showPassword ? <FaEyeSlash></FaEyeSlash> : <FaEye></FaEye>
                                                             }
@@ -93,23 +118,26 @@ const onsubmit = (data) => {
                                      </div>
 
 
-                                            {/* photo */}
-                                          {/* <div>
-                                            <label htmlFor="" className='block capitalize font-semibold'>Profile Picture</label>
-                                            <input type="file" {...register('email',{required : 'phot is Required'})} 
-                                             className='w-full px-3 py-2 mt-3 mb-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-red-400'
+                                            {/* profile photo */}
+                                          <div>
+                                            <label htmlFor="" className='block capitalize font-semibold'>Profile Photo</label>
+                                            <input type="file" {...register('profilePhoto',{required : 'photo is Required'})} 
+                                             className='w-full px-3 py-2 file:rounded-full file:border-0 file:bg-violet-50 file:px-4 file:py-2 file:text-sm file:font-semibold file:text-[#FF0070] hover:file:bg-violet-100 dark:file:bg-violet-600 dark:file:text-violet-100 dark:hover:file:bg-violet-500 '
                                              placeholder='Upload Photo'
                                             />
 
-                                            {errors.email && <p>{errors.email.message} </p>}
-                                        </div> */}
+                                            {errors.profilePhoto && <p>{errors.profilePhoto.message} </p>}
+                                        </div>
 
 
 
 
                                         {/* submit button */}
 
-                                        <button type='submit' className='primary_btn w-full my-3'>Sign Up</button>
+                                        <button type='submit' className='primary_btn w-full mt-3' disabled={isSubmitting}>  
+                                                                {isSubmitting ? 'Submitting...' : 'Sign Up'}
+                                          
+                                        </button>
 
                                          <p className='text-base capitalize text-end'>don't have an acount ? please <Link className='primary_text_color'>Log In</Link></p>
                             </form>
