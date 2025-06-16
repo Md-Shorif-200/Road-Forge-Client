@@ -1,27 +1,33 @@
-import React, { useState } from 'react';
+import React, { useRef, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { FaEye, FaEyeSlash } from 'react-icons/fa';
 import { Link, useNavigate } from 'react-router-dom';
 import img_1 from '../assets/form_img.png'
 import useAuth from '../Hooks/useAuth';
-import { sendEmailVerification } from 'firebase/auth';
+import { getAuth, sendPasswordResetEmail } from 'firebase/auth';
 import toast from 'react-hot-toast';
 import SocailLogIn from './SocailLogIn';
 
-const SignUp = () => {
+
+
+
+const LogIn = () => {
      const {
     register,
     handleSubmit,
+    getValues,
     reset,
     formState: { errors,isSubmitting },
   } = useForm();
 
   // call context api
-  const {user,creatUser} = useAuth()
+  const {logIn} = useAuth()
 
   const [loading,setLoading] = useState(true)
   const [showPassword,setshowPassword] = useState(false);
   const navigate = useNavigate();
+  const emailRef = useRef();
+  const auth = getAuth()
 
  
   
@@ -34,27 +40,19 @@ const onsubmit = async(data) => {
 
   // user Info
   const userInfo = {
-      name :data.name,
+    
       email : data.email,
-      photoUrl: data.profilePhoto
+ 
   }
 
   try {
-        const result = await creatUser(data.email,data.password)   ;
-        // varification email 
-        await  sendEmailVerification(result.user)
-
+        const result = await logIn(data.email,data.password)   ;
         reset();
-        toast.success('Sign Up Succssfully! cheack email for verification')
         navigate('/');
+        toast('log In Succssfully')
   } catch (error) {
-    toast.error(error.message)
-    
+  toast.error(error.message)    
   }
-
-
-
-
 
   console.log(data);
   
@@ -63,6 +61,30 @@ reset()
 
       
 }
+
+
+  // forgot password Functionality
+
+const handleForgotPassword = async() => {
+        const email = getValues('email')
+        
+        if(!email){
+           toast.error('please provide a email')
+        }
+
+     try {
+         await sendPasswordResetEmail(auth,email)
+         toast.success('passwod reset email sent ! please cheack email')
+     } catch (error) {
+      toast.error('somthing is wrong' + error.message)
+     }
+         
+}
+
+
+
+
+
 
 
     return (
@@ -74,22 +96,13 @@ reset()
                       </div>
                       <div className="form_section p-6">
                             <form action="" onSubmit={handleSubmit(onsubmit)}>
-                                        {/* name */}
-                                          <div>
-                                            <label htmlFor="" className='block font-semibold capitalize'>Full Name</label>
-                                            <input type="text" {...register('name',{required : 'Name is Required'})} 
-                                             className='w-full px-3 py-2  '
-                                             placeholder='Enter Your Name'
-                                            />
+                                      
 
-                                            {errors.name && <p className='form_error'>{errors.name.message} </p>}
-                                        </div>
-
-                                     <div className='grid grid-cols-2 gap-x-2'>
+                                   
                                              {/* email */}
                                           <div>
                                             <label htmlFor="" className='block font-semibold capitalize'>Email</label>
-                                            <input type="email" {...register('email',{required : 'email is Required'
+                                            <input  type="email" {...register('email',{required : 'email is Required'
                                             })} 
                                              className='w-full px-3 py-2  '
                                              placeholder='Enter Email Adress'
@@ -121,31 +134,21 @@ reset()
                                                             }
                                                     </div>
                                         </div>
-                                     </div>
-
-
-                                            {/* profile photo */}
-                                          <div>
-                                            <label htmlFor="" className='block capitalize font-semibold'>Profile Photo</label>
-                                            <input type="file" {...register('profilePhoto',{required : 'photo is Required'})} 
-                                             className='w-full px-3 py-2 file:rounded-full file:border-0 file:bg-violet-50 file:px-4 file:py-2 file:text-sm file:font-semibold file:text-[#FF0070] hover:file:bg-violet-100 dark:file:bg-violet-600 dark:file:text-violet-100 dark:hover:file:bg-violet-500 '
-                                             placeholder='Upload Photo'
-                                            />
-
-                                            {errors.profilePhoto && <p>{errors.profilePhoto.message} </p>}
-                                        </div>
-
-
+                                        
+                                         <label className=' capitalize text-blue-600 text-sm font-semibold ' onClick={handleForgotPassword}>
+                                                            <p>Forgot Password ?</p>
+                                         </label>
+                                
 
 
                                         {/* submit button */}
 
                                         <button type='submit' className='primary_btn w-full mt-3' disabled={isSubmitting}>  
-                                                                {isSubmitting ? 'Submitting...' : 'Sign Up'}
+                                                                {isSubmitting ? 'Submitting...' : 'Log In'}
                                           
                                         </button>
 
-                                         <p className='text-base capitalize text-end my-2 font-semibold'>Already have an acount ? please <Link to='/log-in' className='primary_text_color'>Log In</Link></p>
+                                          <p className='text-base capitalize text-end my-2 font-semibold'>Don'nt have an acount ? please <Link to='/sign-up' className='primary_text_color'>Creat Account</Link></p>
                             </form>
 
                                                               <p className='text-lg primary_text_color text-center font-semibold capitalize mb-2'>or</p>
@@ -160,4 +163,4 @@ reset()
     );
 };
 
-export default SignUp;
+export default LogIn;
