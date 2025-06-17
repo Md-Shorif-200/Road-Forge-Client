@@ -7,6 +7,12 @@ import useAuth from "../Hooks/useAuth";
 import { sendEmailVerification } from "firebase/auth";
 import toast from "react-hot-toast";
 import SocailLogIn from "./SocailLogIn";
+import useAxiosPublic from "../Hooks/useAxiosPublic";
+
+// image hosting 
+const imgHosting_key = import.meta.env.VITE_IMG_HOSTING_KEY;
+const imgHosting_api = `https://api.imgbb.com/1/upload?key=${imgHosting_key}`
+
 
 const SignUp = () => {
   const {
@@ -17,26 +23,38 @@ const SignUp = () => {
   } = useForm();
 
   // call context api
-  const { user, creatUser } = useAuth();
+  const { user, creatUser ,updateUserProfile} = useAuth();
 
+  
   const [loading, setLoading] = useState(true);
   const [showPassword, setshowPassword] = useState(false);
   const navigate = useNavigate();
+  const axiosPublic = useAxiosPublic()
 
   //   form submit function
 
   const onsubmit = async (data) => {
-    // user Info
-    const userInfo = {
-      name: data.name,
-      email: data.email,
-      photoUrl: data.profilePhoto,
-    };
 
+    // send img to imgbb and get url
+    const imageFile = {image : data.image[0] };
+
+    const result = await axiosPublic.post(imgHosting_api,imageFile,{
+            headers : {
+                'content-type' : 'multipart/form-data'
+              }
+    })
+
+           if(result.data.success){
+
+            const  photoURL = result.data.data.display_url;
+    
+    // Firebase Authentication
+    
     try {
       const result = await creatUser(data.email, data.password);
+      await updateUserProfile(data.name,photoURL)
       // varification email
-      await sendEmailVerification(result.user);
+      // await sendEmailVerification(result.user);
 
       reset();
       toast.success("Sign Up Succssfully! cheack email for verification");
@@ -45,9 +63,14 @@ const SignUp = () => {
       toast.error(error.message);
     }
 
-    console.log(data);
+            } 
+        
 
-    reset();
+
+
+
+
+  
   };
 
   return (
@@ -137,12 +160,12 @@ const SignUp = () => {
               </label>
               <input
                 type="file"
-                {...register("profilePhoto", { required: "photo is Required" })}
+                {...register("image", { required: "photo is Required" })}
                 className="w-full px-3 py-2 file:rounded-full file:border-0 file:bg-violet-50 file:px-4 file:py-2 file:text-sm file:font-semibold file:text-[#FF0070] hover:file:bg-violet-100 dark:file:bg-violet-600 dark:file:text-violet-100 dark:hover:file:bg-violet-500 "
                 placeholder="Upload Photo"
               />
 
-              {errors.profilePhoto && <p>{errors.profilePhoto.message} </p>}
+              {errors.image && <p>{errors.image.message} </p>}
             </div>
 
             {/* submit button */}

@@ -7,8 +7,11 @@ import {
   signInWithEmailAndPassword,
   signInWithPopup,
   signOut,
+  updateProfile,
 } from "firebase/auth";
 import app from "../Firebase/firebase.init";
+import useAxiosSecure from "../Hooks/useAxiosSecure";
+import toast from "react-hot-toast";
 
 export const AuthContext = createContext();
 const auth = getAuth(app);
@@ -17,20 +20,42 @@ const AuthProvier = ({ children }) => {
   const [user, setUser] = useState();
   const [loading, setLoading] = useState(true);
   const googleProvider = new GoogleAuthProvider();
+  const axiosSecure = useAxiosSecure();
 
   console.log(user);
 
   // Firebase observer
   useEffect(() => {
-    const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
+    const unsubscribe = onAuthStateChanged(auth, async(currentUser) => {
       setUser(currentUser);
       setLoading(false);
+
+      if(currentUser){
+
+         const  userInfo = {
+            UserName : currentUser.displayName,
+            email : currentUser.email,
+            imager : currentUser.photoURL
+
+          }
+
+          
+          try {
+              // send user informaton  to database 
+                const result = await axiosSecure.post('/api/users',userInfo)
+              
+            } catch (error) {
+    
+      toast.error(`someting is wrong`)
+            }
+
+      }
 
       return () => {
         return unsubscribe();
       };
     });
-  });
+  },[]);
 
   // firebase sign up
   const creatUser = (email, password) => {
@@ -59,6 +84,16 @@ const AuthProvier = ({ children }) => {
     return signOut(auth);
   };
 
+
+  // update profile 
+    const updateUserProfile = (name,image) => {
+return updateProfile(auth.currentUser , {
+    displayName : name,
+    photoURL : image
+})
+    }
+
+
   // auth info
   const authInfo = {
     user,
@@ -67,6 +102,7 @@ const AuthProvier = ({ children }) => {
     logIn,
     googleLogIn,
     logOut,
+    updateUserProfile
  
   };
 
