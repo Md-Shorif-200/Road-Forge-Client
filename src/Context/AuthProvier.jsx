@@ -35,7 +35,7 @@ const AuthProvier = ({ children }) => {
          const  userInfo = {
             UserName : currentUser.displayName,
             email : currentUser.email,
-            imager : currentUser.photoURL
+            image : currentUser.photoURL
 
           }
 
