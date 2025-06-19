@@ -8,6 +8,7 @@ import ErrorPage from "../Pages/ErrorPage";
 import SignUp from "../Pages/SignUp";
 import LogIn from "../Pages/LogIn";
 import Home from "../Pages/Home/Home";
+import RoadMapDetails from "../Pages/Road-map-item/RoadMapDetails";
 
 export  const router = createBrowserRouter([
   {
@@ -26,6 +27,10 @@ export  const router = createBrowserRouter([
          {
           path : 'log-in',
           element : <LogIn></LogIn>
+         },
+         {
+          path : 'roadmap-details/:id',
+          element : <RoadMapDetails></RoadMapDetails>
          }
     ]
   }

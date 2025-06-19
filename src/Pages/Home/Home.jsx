@@ -4,7 +4,7 @@ import RoadMapItem from '../Road-map-item/RoadMapItem';
 
 const Home = () => {
     return (
-        <div className='bg-[#F2F2F2] px-60 py-10 w-full min-h-screen'>
+        <div className='bg-[#F2F2F2] px-48 py-10 w-full min-h-screen'>
 
             <Navbar></Navbar>
 

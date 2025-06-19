@@ -18,11 +18,19 @@
 
 
 .primary_btn{
-    @apply bg-[#FF0070] text-white font-semibold px-6 py-2 capitalize text-lg rounded-md
+    @apply bg-[#FF0070] text-white font-semibold px-5 py-1.5 capitalize text-lg rounded-md
 }
+
+
 
 .secondary_btn{
     @apply bg-white text-black font-semibold px-5 py-2 capitalize text-base rounded-md border border-[#FF0070]  hover:bg-[#FF0070] hover:text-white transition-all
+}
+
+
+.action_btn{
+  @apply bg-[#FF0070] text-white font-semibold px-4 py-1  text-lg rounded-md
+
 }
 
 
