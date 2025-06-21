@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { FaCommentAlt, FaThumbsUp } from "react-icons/fa";
 import { FaComment } from "react-icons/fa6";
 
@@ -6,6 +6,7 @@ import toast from "react-hot-toast";
 import useAuth from '../Hooks/useAuth';
 import useAxiosSecure from '../Hooks/useAxiosSecure';
 import useRoadmapItem from '../Hooks/useRoadmapItem';
+import CommentModal from '../Pages/Road-map-item/CommentModal';
 
 
 const RoadmapItemActions = ({road_map_item}) => {
@@ -13,7 +14,7 @@ const RoadmapItemActions = ({road_map_item}) => {
         if(!road_map_item){
             return null
         }
-        
+
       const { _id, title, description, status, comments, upvotes, name, address } =
     road_map_item ;
     const [roadmapItem,isLoading,refetch] = useRoadmapItem()
@@ -22,10 +23,14 @@ const RoadmapItemActions = ({road_map_item}) => {
     const {user} = useAuth();
     // private api
     const axiosSecure = useAxiosSecure();
+    // modal state
+    const [modalOpen , setModalOpen] = useState(false);
+    const [close,setClose] = useState(true)
 
 
     //    manage Upvote Functionality
     const handleUpvote = async (id) => {
+
           
         const upVoteData = {
             userName : user?.displayName,
@@ -55,9 +60,21 @@ const RoadmapItemActions = ({road_map_item}) => {
 
 
 
+
+
     return (
         <div>
-              <div className="flex gap-x-5 items-center">
+             {
+                 modalOpen  ? 
+                  <>
+                  {/* Comment Modal */}
+                        <CommentModal setModalOpen={setModalOpen} road_map_item ={road_map_item} ></CommentModal>
+                  </>
+                  :
+
+                <>
+                {/* roadmap action buttons */}
+                 <div className="flex gap-x-5 items-center">
 
             {/* upvote icon */}
           <div className="upvote text-2xl flex gap-x-2 items-center primary_text_color cursor-pointer group transition-all" onClick={() => handleUpvote(_id)} > 
@@ -66,11 +83,14 @@ const RoadmapItemActions = ({road_map_item}) => {
           </div>
 
                 {/* comment icon*/}
-          <div className="comment text-2xl flex gap-x-2 items-center primary_text_color cursor-pointer group transition-all">
+          <div className="comment text-2xl flex gap-x-2 items-center primary_text_color cursor-pointer group transition-all" onClick={()=>setModalOpen(true)} >
             <FaComment className="transform transition-all duration-300 group-hover:scale-150"></FaComment>{" "}
             {comments.length}
           </div>
-        </div>
+              </div>
+                
+                </>
+             }
         </div>
     );
 };

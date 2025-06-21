@@ -138,7 +138,7 @@ const LogIn = () => {
 
             <button
               type="submit"
-              className="primary_btn w-full mt-3"
+              className="primary_btn w-full mt-3 cursor-pointer"
               disabled={isSubmitting}
             >
               {isSubmitting ? "Submitting..." : "Log In"}
