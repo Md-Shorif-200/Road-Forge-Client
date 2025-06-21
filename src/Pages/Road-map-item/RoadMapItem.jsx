@@ -16,7 +16,7 @@ const RoadMapItem = () => {
                 {
                     roadmapItem.map((item) => {
 
-                      return    <RoadMapCard  key={item?._id} road_map_item={item}></RoadMapCard>
+                      return    <RoadMapCard  key={item?._id} road_map_item={item} ></RoadMapCard>
                     })
                 }
           </div>

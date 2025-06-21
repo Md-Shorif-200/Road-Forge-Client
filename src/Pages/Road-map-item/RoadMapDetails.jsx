@@ -4,6 +4,7 @@ import { FaCommentAlt, FaDotCircle, FaThumbsUp } from "react-icons/fa";
 import { FaComment } from "react-icons/fa6";
 import useRoadmapItem from '../../Hooks/useRoadmapItem';
 import Navbar from '../../Components/Navbar';
+import RoadmapItemActions from '../../Utilites/RoadmapItemActions';
 
 const RoadMapDetails = () => {
       const {id} = useParams();
@@ -23,7 +24,7 @@ const RoadMapDetails = () => {
                                           <p className={`text-sm font-semibold py-1.5 text-white rounded-lg ${myRoadMapData?.status == "Planned" ? "bg-orange-400" : myRoadMapData?.status == "In Progress" ? "bg-blue-400" : "bg-green-400" }`}>  {myRoadMapData?.status} </p>
                                     </div>
                                       <div className="upvote_count">
-                                             <p className="text-gray-600 font-bold text-lg"> Total Upvotes : {myRoadMapData.upvotes} </p>
+                                             <p className="text-gray-600 font-bold text-lg"> Total Upvotes : {myRoadMapData?.upvotes} </p>
                                       </div>
                                     </div>
                                   <h1 className='text-2xl  px-10 font-semibold  capitalize mt-2'> {myRoadMapData?.title} </h1>
@@ -65,25 +66,27 @@ const RoadMapDetails = () => {
                                 </div> */}
 
                                     <hr  className='mt-4 my-6  text-gray-300'/>
-                                  {/* roadmap action section */}
+                                  {/* roadmap action  */}
 
                                                <div className=' roadmap_actions  px-10  my-3 flex justify-between items-center'>
                                     
                                             <div className='flex gap-x-5 items-center'>
+
+                                                <RoadmapItemActions road_map_item={myRoadMapData}></RoadmapItemActions>
                                                 {/* upvote btn */}
-                                                 <div className="upvote text-2xl flex gap-x-2 items-center primary_text_color cursor-pointer group transition-all">
+                                                 {/* <div className="upvote text-2xl flex gap-x-2 items-center primary_text_color cursor-pointer group transition-all">
                                                          <div className="action_btn transform transition-all duration-300 group-hover:-translate-y-3">
                                                                  + upvote 
                                                          </div>
                                      
-                                         </div>
+                                         </div> */}
 
                                                     {/* comment btn */}
-                                        <div className="comment text-2xl flex gap-x-2 items-center primary_text_color cursor-pointer group transition-all">
+                                        {/* <div className="comment text-2xl flex gap-x-2 items-center primary_text_color cursor-pointer group transition-all">
                                                       <div className="action_btn transform transition-all duration-300 group-hover:-translate-y-3">
                                                                  + comment
                                                          </div>
-                                         </div>
+                                         </div> */}
                                             </div>
                     
                                            
