@@ -9,6 +9,8 @@ import SignUp from "../Pages/SignUp";
 import LogIn from "../Pages/LogIn";
 import Home from "../Pages/Home/Home";
 import RoadMapDetails from "../Pages/Road-map-item/RoadMapDetails";
+import MyComments from "../Pages/Comments/MyComments";
+import AllComments from "../Pages/Comments/AllComments";
 
 export  const router = createBrowserRouter([
   {
@@ -31,6 +33,14 @@ export  const router = createBrowserRouter([
          {
           path : 'roadmap-details/:id',
           element : <RoadMapDetails></RoadMapDetails>
+         },
+         {
+          path : '/my-comments',
+          element : <MyComments></MyComments>
+         },
+         {
+          path : '/all-comments',
+          element  : <AllComments></AllComments>
          }
     ]
   }

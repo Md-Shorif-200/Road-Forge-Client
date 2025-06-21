@@ -24,7 +24,9 @@ const CommentModal = ({ setModalOpen , road_map_item}) => {
              commentId : road_map_item?._id,
              userName : user?.displayName,
              userEmail : user?.email,
-             comment  : data.comment
+             comment  : data.comment,
+             roadmapItemTitle : road_map_item?.title,
+             roadmapAuthor : road_map_item?.name
         }
 
         try {
