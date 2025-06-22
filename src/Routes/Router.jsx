@@ -11,6 +11,7 @@ import Home from "../Pages/Home/Home";
 import RoadMapDetails from "../Pages/Road-map-item/RoadMapDetails";
 import MyComments from "../Pages/Comments/MyComments";
 import AllComments from "../Pages/Comments/AllComments";
+import PrivateRoute from "./PrivateRoute";
 
 export  const router = createBrowserRouter([
   {
@@ -32,15 +33,15 @@ export  const router = createBrowserRouter([
          },
          {
           path : 'roadmap-details/:id',
-          element : <RoadMapDetails></RoadMapDetails>
+          element :  <PrivateRoute><RoadMapDetails></RoadMapDetails></PrivateRoute>
          },
          {
           path : '/my-comments',
-          element : <MyComments></MyComments>
+          element : <PrivateRoute> <MyComments></MyComments></PrivateRoute>
          },
          {
           path : '/all-comments',
-          element  : <AllComments></AllComments>
+          element  : <PrivateRoute><AllComments></AllComments></PrivateRoute>
          }
     ]
   }

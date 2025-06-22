@@ -8,6 +8,7 @@ import { getAuth, sendPasswordResetEmail } from "firebase/auth";
 import toast from "react-hot-toast";
 import SocailLogIn from "./SocailLogIn";
 import { TbUrgent } from "react-icons/tb";
+import Navbar from "../Components/Navbar";
 
 const LogIn = () => {
   const {
@@ -70,7 +71,9 @@ const LogIn = () => {
   };
 
   return (
-    <div className="w-full min-h-screen grid grid-cols-2">
+      <div>
+   
+           <div className="w-full min-h-screen grid grid-cols-2">
  
         <div className="form_img primary_bg_color w-full flex justify-center items-center">
           <img src={img_1} alt="form image" className="w-1/2" />
@@ -162,6 +165,7 @@ const LogIn = () => {
         </div>
   
     </div>
+      </div>
   );
 };
 

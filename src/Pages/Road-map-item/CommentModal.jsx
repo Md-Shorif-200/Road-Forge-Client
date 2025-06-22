@@ -21,16 +21,19 @@ const CommentModal = ({ setModalOpen , road_map_item}) => {
   //  private api
    const axiosSecure = useAxiosSecure();
 
-  //   handle modal formF
+  //   handle modal form
   const onsubmit = async (data) => {
         const commentInfo = {
              commentId : road_map_item?._id,
              userName : user?.displayName,
              userEmail : user?.email,
+             photo : user?.photoURL,
              comment  : data.comment,
              roadmapItemTitle : road_map_item?.title,
              roadmapAuthor : road_map_item?.name
         }
+
+      
 
         try {
           // send comment info to database

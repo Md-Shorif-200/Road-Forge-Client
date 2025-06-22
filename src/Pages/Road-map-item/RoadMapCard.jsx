@@ -5,9 +5,12 @@ import { Link } from "react-router-dom";
 import RoadmapItemActions from "../../Utilites/RoadmapItemActions";
 import Loading from "../../Components/Loading";
 
+
 const RoadMapCard = ({ road_map_item , isLoading}) => {
   const { _id, title, description, status, comments, upvotes, name, address } =
     road_map_item;
+    
+
 
  
 
@@ -26,8 +29,8 @@ const RoadMapCard = ({ road_map_item , isLoading}) => {
             status == "Planned"
               ? "bg-orange-400"
               : status == "In Progress"
-              ? "bg-blue-400"
-              : "bg-green-400"
+              ? "bg-indigo-500"
+              : "bg-emerald-500"
           }`}
         >
           {" "}
@@ -38,7 +41,7 @@ const RoadMapCard = ({ road_map_item , isLoading}) => {
         {" "}
         {title}{" "}
       </h1>
-      <p className="text-base  px-4 lowercase text-gray-600 py-3">
+      <p className="text-base w-full h-[80px] px-4 lowercase text-gray-600 py-3">
         {" "}
         {description.slice(0, 140)}...{" "}
       </p>

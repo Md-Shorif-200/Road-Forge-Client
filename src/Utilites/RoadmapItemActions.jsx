@@ -15,7 +15,8 @@ const RoadmapItemActions = ({road_map_item}) => {
             return null
         }
 
-      const { _id, title, description, status, comments, upvotes, name, address } =
+        
+        const { _id, title, description, status, comments, upvotes, name, address } =
     road_map_item ;
     const [roadmapItem,isLoading,refetch] = useRoadmapItem()
 
@@ -27,16 +28,27 @@ const RoadmapItemActions = ({road_map_item}) => {
     const [modalOpen , setModalOpen] = useState(false);
     const [close,setClose] = useState(true)
 
+    // //  if user not log in 
+    //  if(!user){
+    //    return toast.error('your are not log in.')
+    //  }
 
     //    manage Upvote Functionality
     const handleUpvote = async (id) => {
 
+       //  if user not log in 
+          if(!user){
+            return toast.error('your are not loged in.')
+          }
           
         const upVoteData = {
             userName : user?.displayName,
             userEmail : user?.email,
             
         }
+
+
+      
           try {
 
             // update roadmap-item data
@@ -57,6 +69,17 @@ const RoadmapItemActions = ({road_map_item}) => {
           }
               
     }
+
+    // manage commentModal 
+
+     const handleCommentModal = () => {
+          //  if user not log in 
+          if(!user){
+            return toast.error('your are not loged in.')
+          }
+
+          setModalOpen(true)
+     }
 
 
 
@@ -83,7 +106,7 @@ const RoadmapItemActions = ({road_map_item}) => {
           </div>
 
                 {/* comment icon*/}
-          <div className="comment text-2xl flex gap-x-2 items-center primary_text_color cursor-pointer group transition-all" onClick={()=>setModalOpen(true)} >
+          <div className="comment text-2xl flex gap-x-2 items-center primary_text_color cursor-pointer group transition-all" onClick={handleCommentModal} >
             <FaComment className="transform transition-all duration-300 group-hover:scale-150"></FaComment>{" "}
             {comments.length}
           </div>

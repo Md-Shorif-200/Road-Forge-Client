@@ -18,7 +18,7 @@
 
 
 .primary_btn{
-    @apply bg-[#FF0070] text-white font-semibold px-5 py-1.5 capitalize text-lg rounded-md
+    @apply bg-[#FF0070] text-white font-semibold px-5 py-1.5 capitalize text-lg rounded-md 
 }
 
 

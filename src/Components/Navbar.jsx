@@ -3,10 +3,16 @@ import { Link } from "react-router-dom";
 import useAuth from "../Hooks/useAuth";
 import { MdLogout } from "react-icons/md";
 import { FaComment, FaComments, FaHome } from "react-icons/fa";
+import useComments from "../Hooks/useComments";
 
 const Navbar = () => {
   const { user, logOut } = useAuth();
   const [isActive, setIsActive] = useState(false);
+
+  // don't show my-comments page if user not comment any roadmap-item
+  const  [Comments,isLoading,refetch] = useComments();
+
+  const isComment = Comments.find(data => data?.userEmail === user?.email);
 
   // handle logout function
 
@@ -28,7 +34,7 @@ const Navbar = () => {
             <>
               {/* user profile image */}
               <div className="flex justify-center items-center gap-x-3">
-                <h2 className="text-lg font-semibold"> {user?.displayName} </h2>
+                <h2 className="text-lg font-semibold capitalize"> {user?.displayName} </h2>
 
                 <div
                   className="profile_img cursor-pointer"
@@ -45,10 +51,10 @@ const Navbar = () => {
             </>
           ) : (
             <>
-              <Link to="sign-up" className="sign_up_btn primary_btn">
+              <Link to="/sign-up" className="sign_up_btn primary_btn">
                 sign up
               </Link>
-              <Link to="log-in" className=" primary_btn">
+              <Link to="/log-in" className=" primary_btn">
                 Log In
               </Link>
             </>
@@ -80,13 +86,21 @@ const Navbar = () => {
                 </Link>{" "}
               </li>
               {/* my comments */}
-              <li className="text-lg font-semibold py-3  border-b border-gray-200 hover:bg-gray-200 transition-all px-4 gap-x-2">
+               {
+                isComment ?
+                 <>   
+                 <li className="text-lg font-semibold py-3  border-b border-gray-200 hover:bg-gray-200 transition-all px-4 gap-x-2">
                 {" "}
                 <Link className="flex items-center gap-x-3" to='/my-comments'>
                   <FaComment className="text-2xl"></FaComment>
                   my comments
                 </Link>{" "}
               </li>
+                </>
+                :
+                  <> </>
+              
+               }
               {/* log out */}
               <li className="text-lg font-semibold py-3  border-b border-gray-200 hover:bg-gray-200 transition-all px-4">
                 <button
