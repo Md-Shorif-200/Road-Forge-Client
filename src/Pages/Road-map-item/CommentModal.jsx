@@ -39,8 +39,11 @@ const CommentModal = ({ setModalOpen , road_map_item}) => {
             if(result.acknowledged && result.insertedId){
               //  show  toast success message
               toast.success('You have successfully commented');
-              // navigate my comment page
-              navigate('/my-comments')
+              // navigate my comment page after 1 second
+               setTimeout(() => {
+                
+                 navigate('/my-comments')
+               }, 1000);
             }
            
         } catch (error) {

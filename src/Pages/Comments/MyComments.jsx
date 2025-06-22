@@ -6,12 +6,16 @@ import { FaDotCircle, FaEdit } from 'react-icons/fa';
 import Loading from '../../Components/Loading';
 import { MdDelete } from 'react-icons/md';
 import CommentEditModal from './CommentEditModal';
+import Swal from 'sweetalert2';
+import useAxiosSecure from '../../Hooks/useAxiosSecure';
+import toast from 'react-hot-toast';
 
 const MyComments = () => {
       const [Comments,isLoading,refetch] = useComments();
        const  {user} = useAuth();
        const [open,setOpen] = useState(false);
        const [commentId,setCommentId] = useState('');
+       const axiosSecure = useAxiosSecure();
 
     //    find my comments
     const myComment = Comments?.filter(comment => comment?.userEmail == user?.email);
@@ -35,6 +39,39 @@ const handleEditBtn = async (id) => {
 //  handle delete button
 const handleDeleteBtn = async (id) => {
       
+      try {
+                        Swal.fire({
+  title: "Are you sure?",
+  text: "You won't be able to revert this!",
+  icon: "warning",
+  showCancelButton: true,
+  confirmButtonColor: "#3085d6",
+  cancelButtonColor: "#d33",
+  confirmButtonText: "Yes, delete it!"
+}).then( async (result) => {
+  if (result.isConfirmed) {
+      //   send delete requiest to database
+      const response = await axiosSecure.delete(`/api/comments/delete/${id}`);
+      const result = response.data;
+            if(result.acknowledged && result.deletedCount > 0){
+                       Swal.fire({
+      title: "Deleted!",
+      text: "Your file has been deleted.",
+      icon: "success"
+     });
+                  // refetch data
+                  refetch();
+
+            }
+       
+
+  }
+});
+            
+      } catch (error) {
+           toast.error(error.message)
+            
+      }
         
 }
    
