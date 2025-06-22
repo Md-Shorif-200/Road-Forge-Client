@@ -1,24 +1,57 @@
-import React from 'react';
+import React, { useState } from 'react';
 import Navbar from '../../Components/Navbar';
 import useComments from '../../Hooks/useComments';
 import useAuth from '../../Hooks/useAuth';
 import { FaDotCircle, FaEdit } from 'react-icons/fa';
 import Loading from '../../Components/Loading';
 import { MdDelete } from 'react-icons/md';
+import CommentEditModal from './CommentEditModal';
 
 const MyComments = () => {
       const [Comments,isLoading,refetch] = useComments();
        const  {user} = useAuth();
+       const [open,setOpen] = useState(false);
+       const [commentId,setCommentId] = useState('');
 
     //    find my comments
     const myComment = Comments?.filter(comment => comment?.userEmail == user?.email);
 
+      //  handle loading state
     if(isLoading){
           return <Loading></Loading>
     }
+
+//  handle edit button
+const handleEditBtn = async (id) => {
+      //    open modal
+      setOpen(true)
+      // store comment id
+      setCommentId(id)
+
+      
+        
+}
+
+//  handle delete button
+const handleDeleteBtn = async (id) => {
+      
+        
+}
+   
        
     return (
-        <div className='Common_bg_Class'>
+         <div>
+             {
+                  open ?
+                  //  comment edit modal
+                   <>
+                    <CommentEditModal setOpen={setOpen} myComment={myComment} commentId={commentId} refetch={refetch}></CommentEditModal>
+                  </>
+
+                  : 
+
+                  <>
+                                <div className='Common_bg_Class'>
              <Navbar></Navbar>
 
             
@@ -29,9 +62,10 @@ const MyComments = () => {
 
                      <div className="comment_cards">
                           {
-                             myComment.map(data => {
-                                 return (
-                                  <div className='card w-full px-[4%] border border-gray-300 flex justify-between items-center '>
+                                myComment.map((data,index) => {
+                              
+                                      return (
+                                  <div key={index} className='card w-full px-[4%] border border-gray-300 flex justify-between items-center '>
                                               <div className="comment_info">
                                                 <h2 className='text-lg capitalize font-semibold mt-2 mb-3  flex items-center gap-x-2'>  <FaDotCircle className='text-[10px]'></FaDotCircle>  {data.roadmapItemTitle} - <span className='text-gray-600'> By {data?.roadmapAuthor} </span> </h2>
 
@@ -41,10 +75,13 @@ const MyComments = () => {
                                                 {/* comment action btn */}
 
                                                 <div className="comment_action_btn flex gap-x-8 text-2xl">
-                                                                <div className="edit p-2  cursor-pointer text-[#FF0070]  " title='edit comment'>
+                                                                        {/* edit */}
+                                                                <div className="edit p-2  cursor-pointer text-[#FF0070]  " title='edit comment' onClick={() => handleEditBtn(data?._id)}>
                                                                       <FaEdit></FaEdit>
                                                                 </div>
-                                                                <div className="delete p-2  cursor-pointer text-red-500  " title='delete comment'>
+
+                                                                {/* delete  */}
+                                                                <div className="delete p-2  cursor-pointer text-red-500  " title='delete comment' onClick={() => handleDeleteBtn(data?._id)}>
                                                                      <MdDelete></MdDelete>
                                                                 </div>
                                                 </div>
@@ -58,6 +95,9 @@ const MyComments = () => {
               </div>
 
         </div>
+                  </>
+             }
+         </div>
     );
 };
 

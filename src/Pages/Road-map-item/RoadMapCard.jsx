@@ -3,14 +3,18 @@ import React from "react";
 import { Link } from "react-router-dom";
 
 import RoadmapItemActions from "../../Utilites/RoadmapItemActions";
+import Loading from "../../Components/Loading";
 
-const RoadMapCard = ({ road_map_item }) => {
+const RoadMapCard = ({ road_map_item , isLoading}) => {
   const { _id, title, description, status, comments, upvotes, name, address } =
     road_map_item;
 
  
 
-
+  // handle Loading state
+  if(isLoading){
+     return <Loading></Loading>
+  }
  
 
   return (

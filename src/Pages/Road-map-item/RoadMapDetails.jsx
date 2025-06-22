@@ -5,12 +5,18 @@ import { FaComment } from "react-icons/fa6";
 import useRoadmapItem from '../../Hooks/useRoadmapItem';
 import Navbar from '../../Components/Navbar';
 import RoadmapItemActions from '../../Utilites/RoadmapItemActions';
+import Loading from '../../Components/Loading';
 
 const RoadMapDetails = () => {
       const {id} = useParams();
       const [roadmapItem,isLoading,refetch] = useRoadmapItem();
 
       const myRoadMapData = roadmapItem.find(item => item?._id == id);
+
+      // handle loading state
+       if(isLoading){
+         return <Loading></Loading>
+       }
 
       
     return (
@@ -56,14 +62,6 @@ const RoadMapDetails = () => {
                                                 </div>
                                       </div>
                     
-                    
-                               
-                                {/*  */}
-{/*                     
-                                <div className='px-10 mt-4' >
-                                      <h1 className='text-lg capitalize font-semibold'> {myRoadMapData?.name} </h1>
-                                      <p className='text-lg capitalize text-gray-400'> {myRoadMapData?.address} </p>
-                                </div> */}
 
                                     <hr  className='mt-4 my-6  text-gray-300'/>
                                   {/* roadmap action  */}
@@ -73,20 +71,7 @@ const RoadMapDetails = () => {
                                             <div className='flex gap-x-5 items-center'>
 
                                                 <RoadmapItemActions road_map_item={myRoadMapData}></RoadmapItemActions>
-                                                {/* upvote btn */}
-                                                 {/* <div className="upvote text-2xl flex gap-x-2 items-center primary_text_color cursor-pointer group transition-all">
-                                                         <div className="action_btn transform transition-all duration-300 group-hover:-translate-y-3">
-                                                                 + upvote 
-                                                         </div>
-                                     
-                                         </div> */}
-
-                                                    {/* comment btn */}
-                                        {/* <div className="comment text-2xl flex gap-x-2 items-center primary_text_color cursor-pointer group transition-all">
-                                                      <div className="action_btn transform transition-all duration-300 group-hover:-translate-y-3">
-                                                                 + comment
-                                                         </div>
-                                         </div> */}
+                                            
                                             </div>
                     
                                            

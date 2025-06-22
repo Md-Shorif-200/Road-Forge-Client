@@ -4,6 +4,7 @@ import { MdCancel, MdClose } from "react-icons/md";
 import useAuth from "../../Hooks/useAuth";
 import useAxiosSecure from "../../Hooks/useAxiosSecure";
 import toast from "react-hot-toast";
+import { useNavigate } from "react-router-dom";
 
 const CommentModal = ({ setModalOpen , road_map_item}) => {
   const {
@@ -12,6 +13,8 @@ const CommentModal = ({ setModalOpen , road_map_item}) => {
     reset,
     formState: { errors, isSubmitting },
   } = useForm();
+
+  const navigate = useNavigate()
 
   //  context api
    const {user} = useAuth();
@@ -35,7 +38,9 @@ const CommentModal = ({ setModalOpen , road_map_item}) => {
             const result = response.data;
             if(result.acknowledged && result.insertedId){
               //  show  toast success message
-              toast.success('You have successfully commented')
+              toast.success('You have successfully commented');
+              // navigate my comment page
+              navigate('/my-comments')
             }
            
         } catch (error) {
@@ -65,6 +70,7 @@ const CommentModal = ({ setModalOpen , road_map_item}) => {
               {...register("comment", { required: "This Field  is Required" })}
               className="w-full px-3 py-2 border border-black/30  focus:border-[#FF0070] focus:outline-[#FF0070] resize-none  "
               placeholder="Say Something..."
+               maxLength={300}
             />
 
             {errors.comment && (
