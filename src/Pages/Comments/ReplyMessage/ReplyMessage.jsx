@@ -43,9 +43,9 @@ const ReplyMessage = ({commentData}) => {
                         replies.map(data => {
                             return (
                                     <div key={data.id}>
-                                        <div className='reply_message_card flex  gap-x-3 my-5'>
+                                        <div className='reply_message_card flex  gap-x-3 mb-5'>
                                             <div className="photo">
-                                                 <img src={data?.photo} alt={data?.name} className='w-10 h-10 rounded-full border border-gray-300' />
+                                                 <img src={data?.photo} alt={data?.name} className='w-8 sm:w-10 md:w-12 lg:w-14 h-8 sm:h-10 md:h-12 lg:h-14 rounded-full border border-gray-300' />
                                             </div>
                                             <div className="reply_message w-full ">
                                                    <div className='message bg-[#F0F2F5] p-2 rounded-xl' >

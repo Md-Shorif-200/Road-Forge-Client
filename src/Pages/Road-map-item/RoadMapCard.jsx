@@ -21,7 +21,7 @@ const RoadMapCard = ({ road_map_item , isLoading}) => {
  
 
   return (
-    <div className="rodmap_item_card bg-white text-black  py-3 rounded-md shadow-sm hover:bg-gray-100  transition-all">
+    <div className="rodmap_item_card  bg-white text-black  py-3 rounded-md shadow-sm hover:bg-gray-100  transition-all">
       {/* status &  title  */}
       <div className="status_badge px-4  w-[170px] text-center">
         <p
@@ -41,14 +41,14 @@ const RoadMapCard = ({ road_map_item , isLoading}) => {
         {" "}
         {title}{" "}
       </h1>
-      <p className="text-base w-full h-[80px] px-4 lowercase text-gray-600 py-3">
+      <p className="text-base w-full h-[80px] px-4  lowercase text-gray-600 py-3">
         {" "}
         {description.slice(0, 140)}...{" "}
       </p>
 
       {/* roadmap action section */}
 
-      <div className=" roadmap_actions  px-4  my-3 flex justify-between items-center">
+      <div className=" roadmap_actions  px-4  mt-14 sm:mt-0 lg:mt-4 mb-6 flex justify-between items-center">
                           {/* manage upvote and comment function */}
                     <RoadmapItemActions road_map_item={road_map_item}></RoadmapItemActions>
             {/* card details button */}

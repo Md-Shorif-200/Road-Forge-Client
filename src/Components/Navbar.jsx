@@ -4,6 +4,8 @@ import useAuth from "../Hooks/useAuth";
 import { MdLogout } from "react-icons/md";
 import { FaComment, FaComments, FaHome } from "react-icons/fa";
 import useComments from "../Hooks/useComments";
+import { RiArrowDropDownLine } from "react-icons/ri";
+
 
 const Navbar = () => {
   const { user, logOut } = useAuth();
@@ -22,8 +24,9 @@ const Navbar = () => {
   };
 
   return (
-    <nav className=" bg-white  rounded-md  px-10 py-6 shadow-md relative">
-      <div className="flex justify-between">
+  <div className="sticky top-0">
+      <nav className=" bg-white  rounded-md  px-4 sm:px-8 md:px-10 py-6 shadow-md relative" >
+      <div className="flex justify-between items-center">
         <div className="logo">
           <h1 className="font-semibold text-2xl primary_text_color">
             roadForge
@@ -33,11 +36,11 @@ const Navbar = () => {
           {user ? (
             <>
               {/* user profile image */}
-              <div className="flex justify-center items-center gap-x-3">
-                <h2 className="text-lg font-semibold capitalize"> {user?.displayName} </h2>
+              <div className="flex justify-center items-center">
+                <h2 className="text-lg font-semibold capitalize hidden sm:block mr-4"> {user?.displayName} </h2>
 
                 <div
-                  className="profile_img cursor-pointer"
+                  className="profile_img cursor-pointer flex items-center"
                   onClick={() => setIsActive(!isActive)}
                 >
                   <img
@@ -45,13 +48,18 @@ const Navbar = () => {
                     className="w-[50px] h-[50px] rounded-full bject-cover border border-[#FF0070]"
                     alt="User Photo"
                   />
+                    <div className="dropdown_btn text-4xl">
+                      <RiArrowDropDownLine></RiArrowDropDownLine>
+                  </div>
+
                 </div>
+                
               </div>
-              <div></div>
+   
             </>
           ) : (
             <>
-              <Link to="/sign-up" className="sign_up_btn primary_btn">
+              <Link to="/sign-up" className="sign_up_btn primary_btn hidden sm:block">
                 sign up
               </Link>
               <Link to="/log-in" className=" primary_btn">
@@ -61,10 +69,14 @@ const Navbar = () => {
           )}
           {/* nav card */}
           <div
-            className={`nav_card   lg:w-[20%] bg-white shadow-2xl text-black capitalize  pt-6   absolute top-full  right-4 rounded-sm transition-all ${
+            className={`nav_card   w-[70%] sm:w-[60%] md:w-[40%] lg:w-[30%] xl:w-[20%] bg-white shadow-2xl text-black capitalize  pt-6   absolute top-full  right-4 rounded-sm transition-all ${
               isActive ? "block" : "hidden"
             }`}
           >
+                  <div className="flex  gap-x-3 items-center px-2 pb-4 border-b border-b-gray-200 sm:hidden">
+                       <img src={user?.photoURL} className="w-10 h-10 rounded-full border border-[#FF0070] " alt="user profile img" />
+                           <h2 className="text-lg font-semibold capitalize"> {user?.displayName} </h2>
+                  </div>
             <ul>
 
                   {/* got to home */}
@@ -116,6 +128,7 @@ const Navbar = () => {
         </div>
       </div>
     </nav>
+  </div>
   );
 };
 

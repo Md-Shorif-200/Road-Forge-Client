@@ -20,25 +20,25 @@ const RoadMapDetails = () => {
 
       
     return (
-        <div className='bg-[#F2F2F2] px-48 py-10 w-full min-h-screen'>
+        <div className='Common_bg_Class'>
             <Navbar></Navbar>
 
-            <div className="road_map_details w-full bg-white shadow-sm py-10 mt-4">
+            <div className="road_map_details w-full bg-white shadow-sm py-6 sm:py-10 mt-4 rounded-md">
                       {/* status &  title  */}
-                                    <div className='flex justify-between items-center px-10'>
-                                        <div className="status_badge   w-[15%] text-center">
+                                    <div className='flex justify-between items-center px-4 sm:px-7 md:px-10'>
+                                        <div className="status_badge   w-[170px] text-center">
                                           <p className={`text-sm font-semibold py-1.5 text-white rounded-lg ${myRoadMapData?.status == "Planned" ? "bg-orange-400" : myRoadMapData?.status == "In Progress" ? "bg-blue-400" : "bg-green-400" }`}>  {myRoadMapData?.status} </p>
                                     </div>
                                       <div className="upvote_count">
-                                             <p className="text-gray-600 font-bold text-lg"> Total Upvotes : {myRoadMapData?.upvotes} </p>
+                                             <p className="text-gray-600 font-bold text-lg">  Upvotes : {myRoadMapData?.upvotes} </p>
                                       </div>
                                     </div>
-                                  <h1 className='text-2xl  px-10 font-semibold  capitalize mt-2'> {myRoadMapData?.title} </h1>
-                                  <p  className='text-base  px-10 lowercase text-gray-600 py-3'> {myRoadMapData?.description} </p>
+                                  <h1 className='text-2xl  px-4 sm:px-7 md:px-10 font-semibold  capitalize my-4 sm:my-3'> {myRoadMapData?.title} </h1>
+                                  <p  className='text-base  px-4 sm:px-7 md:px-10 lowercase text-gray-600 py-3'> {myRoadMapData?.description} </p>
 
                                     {/* Features  */}
 
-                                      <div className="features px-10">
+                                      <div className="features px-4 sm:px-7 md:px-10">
                                            <h1 className='text-lg capitalize font-semibold'> Key Features </h1>
                                                 <div>
                                                     {
@@ -51,7 +51,7 @@ const RoadMapDetails = () => {
 
                                         {/* next-target  */}
 
-                                      <div className="next_target px-10 mt-6">
+                                      <div className="next_target px-4 sm:px-7 md:px-10 mt-6">
                                            <h1 className='text-lg capitalize font-semibold'> Next Target </h1>
                                                 <div>
                                                     {
@@ -66,7 +66,7 @@ const RoadMapDetails = () => {
                                     <hr  className='mt-4 my-6  text-gray-300'/>
                                   {/* roadmap action  */}
 
-                                               <div className=' roadmap_actions  px-10  my-3 flex justify-between items-center'>
+                                               <div className=' roadmap_actions  px-4 sm:px-7 md:px-10  my-3 flex justify-between items-center'>
                                     
                                             <div className='flex gap-x-5 items-center'>
 

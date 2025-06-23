@@ -94,7 +94,7 @@ const AllComments = () => {
 
       {/* my Comments section */}
       <div className="my_comment_section w-full min-h-screen mt-2  py-10 bg-white shadow-2xl rounded-lg">
-        <h1 className="text-2xl mt-4 mb-6 capitalize font-semibold px-[4%] ">
+        <h1 className="text-xl sm:text-2xl mt-0 sm:mt-2 md:mt-4 mb-6 capitalize font-semibold px-[4%] ">
           {" "}
           All comments ( {Comments?.length || 0} )
         </h1>
@@ -102,20 +102,20 @@ const AllComments = () => {
         <div className="all_comments_card">
           {Comments.map((data, index) => {
             return (
-                <div  key={index} className="w-full px-[4%] pt-6 pb-3 border border-gray-200">
-              <div
-           
-                className="card "
-              >
-                <div className="comment_info flex items-center gap-x-5 " >
+                <div  key={index} className="w-full px-[2%] sm:px-[4%] pt-3 sm:pt-4 md:pt-6  sm:pb-3 border border-gray-200">
+                      {/* comments section */}
+   
+                <div className="comment_card flex  " >
+                      {/* img */}
                   <div className="user_img">
                     <img
                       src={data?.photo}
                       alt={data?.displayName}
-                      className="w-16 h-16 rounded-full"
+                      className="w-10 sm:w-12 md:w-14 lg:w-16 h-10 sm:h-12 md:h-14 lg:h-16 mt-3 rounded-full border border-gray-300"
                     />
                   </div>
-                  <div className="user_comment w-full  pl-4 py-3">
+                    {/* comments */}
+                  <div className="user_comment w-full  pl-2  sm:pl-4 py-0">
                               <div className="comment bg-[#F0F2F5] rounded-lg p-2">
                  <h3 className="text-lg font-semibold capitalize mb-1">
                       {" "}
@@ -129,23 +129,21 @@ const AllComments = () => {
                                       {/* comment reply button  */}
                 <div className="comment_reply_btn  mr-2 flex justify-between mt-1  ">
                           <div className="flex gap-x-6 ">
-                               <p className="capitalize font-semibold">1 day ago</p>
-                  <a  className="capitalize font-semibold text-base cursor-pointer hover:underline" onClick={() => handleReplayBtn(data?._id)}> reply</a>
+                               <p className="text-sm sm:text-base capitalize font-semibold">1 day ago</p>
+                  <a  className="capitalize font-semibold text-sm sm:text-base cursor-pointer hover:underline" onClick={() => handleReplayBtn(data?._id)}> reply</a>
                           </div>
                           {/* show reply button */}
                           <div className="show_replies">
-                                <button  className="font-semibold capitalize hover:underline" disabled={!data.replies} onClick={() => handleReplyShowButton(data?._id)}> replies  {data?.replies?.length || 0} </button>
+                                <button  className=" text-sm sm:text-base font-semibold capitalize hover:underline" disabled={!data.replies} onClick={() => handleReplyShowButton(data?._id)}> replies  {data?.replies?.length || 0} </button>
                           </div>
                 </div>
                   
                   </div>
                 </div>
 
-              
-                </div>
 
                   {/* reply form */}
-                <div className="replyForm px-[8%] flex gap-x-3 mt-6">
+                <div className="replyForm ml-8 sm:ml-10 md:ml-18 lg:ml-22 xl:ml-28 flex gap-x-3 mt-6">
                     {
                        replyFormId === data?._id ?
                         <>
