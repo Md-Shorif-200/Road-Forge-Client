@@ -23,7 +23,7 @@ const RoadMapCard = ({ road_map_item , isLoading}) => {
   return (
     <div className="rodmap_item_card bg-white text-black  py-3 rounded-md shadow-sm hover:bg-gray-100  transition-all">
       {/* status &  title  */}
-      <div className="status_badge px-4  w-[30%] text-center">
+      <div className="status_badge px-4  w-[170px] text-center">
         <p
           className={`text-sm font-semibold py-1.5 text-white rounded-lg ${
             status == "Planned"

@@ -5,7 +5,7 @@ import Loading from '../../Components/Loading';
 
 
 const RoadMapItem = () => {
-     const [filter,setFilter] = useState('allItem');
+     const [filter,setFilter] = useState('');
      const [sort,setSort] = useState('');
     const [roadmapItem,isLoading,refetch] = useRoadmapItem(filter,sort);
 
@@ -15,7 +15,7 @@ const RoadMapItem = () => {
     }
 
     const handleResetBtn = () => {
-       setFilter('allItem');
+       setFilter('');
        setSort('')
     }
 
@@ -27,7 +27,7 @@ const RoadMapItem = () => {
             {/* filter  */}
                <div className="filter_btn">
                       <select name="" id="" className='w-52 text-lg capitalize border-[2px] focus:outline-[#FF0070] border-[#FF0070] p-2 rounded-sm font-semibold cursor-pointer' defaultValue='Filter By Catagory' onChange={(e) => setFilter(e.target.value)}>
-                           <option value="Filter By Catagory" disabled>Filter By Catagory</option>
+                           <option value="Filter By Catagory" disabled>Filter By Status</option>
                            <option  value="Planned">Planned</option>
                            <option  value="In Progress"> In Progress</option>
                            <option  value="Completed"> Completed</option>
@@ -50,7 +50,7 @@ const RoadMapItem = () => {
                 {
                     roadmapItem.map((item) => {
 
-                      return    <div className=''><RoadMapCard  key={item?._id} road_map_item={item} isLoading={isLoading}></RoadMapCard></div>
+                      return    <div className='transition-transform duration-300 ease-in-out'><RoadMapCard  key={item?._id} road_map_item={item} isLoading={isLoading}></RoadMapCard></div>
                     })
                 }
           </div>

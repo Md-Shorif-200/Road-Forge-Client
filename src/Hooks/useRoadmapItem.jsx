@@ -2,7 +2,7 @@ import React from 'react';
 import useAxiosSecure from './useAxiosSecure';
 import { useQuery } from '@tanstack/react-query';
 
-const useRoadmapItem = (filter = 'allItem', sort = '') => {
+const useRoadmapItem = (filter = '', sort = '') => {
       const axiosSecure = useAxiosSecure();
 
       const {data :roadmapItem = [],isLoading,refetch} = useQuery({

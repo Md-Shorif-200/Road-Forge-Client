@@ -29,6 +29,7 @@ const CommentModal = ({ setModalOpen , road_map_item}) => {
              userEmail : user?.email,
              photo : user?.photoURL,
              comment  : data.comment,
+             time : new Date(),
              roadmapItemTitle : road_map_item?.title,
              roadmapAuthor : road_map_item?.name
         }
