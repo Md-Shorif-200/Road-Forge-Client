@@ -71,7 +71,8 @@ const AllComments = () => {
             if(result.acknowledged && result.modifiedCount > 0){
                 toast.success('you reply to this message')
                 reset();
-                setReplyFormId(null)
+                setReplyFormId(null);
+                refetch();
             }
               
             
@@ -101,7 +102,7 @@ const AllComments = () => {
         <div className="all_comments_card">
           {Comments.map((data, index) => {
             return (
-                <div  key={index} className="w-full px-[4%] pt-6 pb-3 border border-gray-300">
+                <div  key={index} className="w-full px-[4%] pt-6 pb-3 border border-gray-200">
               <div
            
                 className="card "
@@ -114,28 +115,33 @@ const AllComments = () => {
                       className="w-16 h-16 rounded-full"
                     />
                   </div>
-                  <div className="user_comment w-full bg-[#F0F2F5] rounded-lg px-4 py-3">
-                    <h3 className="text-lg font-semibold capitalize mb-1">
+                  <div className="user_comment w-full  pl-4 py-3">
+                              <div className="comment bg-[#F0F2F5] rounded-lg p-2">
+                 <h3 className="text-lg font-semibold capitalize mb-1">
                       {" "}
                       {data?.userName}{" "}
                     </h3>
                     <p className="text-base capitalize text-gray-800">
                       {data?.comment}{" "}
                     </p>
-                  </div>
-                </div>
+                              </div>
 
-                      {/* comment reply button  */}
+                                      {/* comment reply button  */}
                 <div className="comment_reply_btn  mr-2 flex justify-between mt-1  ">
-                          <div className="flex gap-x-6 ml-22 ">
+                          <div className="flex gap-x-6 ">
                                <p className="capitalize font-semibold">1 day ago</p>
                   <a  className="capitalize font-semibold text-base cursor-pointer hover:underline" onClick={() => handleReplayBtn(data?._id)}> reply</a>
                           </div>
                           {/* show reply button */}
                           <div className="show_replies">
-                                <a className="font-semibold capitalize hover:underline" onClick={() => handleReplyShowButton(data?._id)}>Show replies ()</a>
+                                <button  className="font-semibold capitalize hover:underline" disabled={!data.replies} onClick={() => handleReplyShowButton(data?._id)}> replies  {data?.replies?.length || 0} </button>
                           </div>
                 </div>
+                  
+                  </div>
+                </div>
+
+              
                 </div>
 
                   {/* reply form */}
@@ -153,7 +159,7 @@ const AllComments = () => {
             <textarea
               type="text"
               {...register("replyMessage", { required: "This Field  is Required" })}
-              className="w-full px-3 py-2 border-none bg-[#F0F2F5] border-black/30  focus:border-[#FF0070] focus:outline-[#FF0070] resize-none rounded-lg  "
+              className="w-full px-3 py-2 border border-gray-300 bg-[#F0F2F5]   focus:border-[#FF0070] focus:outline-[#FF0070] resize-none rounded-lg  "
               placeholder="Reply..."
                maxLength={300}
             />
@@ -186,7 +192,7 @@ const AllComments = () => {
 
                       <div className="show replies">
                          {
-                            replyMessageId === data?._id &&  <ReplyMessage commentData = {data}></ReplyMessage>
+                            replyMessageId === data?._id &&  <ReplyMessage commentData = {data} ></ReplyMessage>
                          }
                       </div>
 

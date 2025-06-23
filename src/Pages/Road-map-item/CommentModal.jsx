@@ -24,7 +24,7 @@ const CommentModal = ({ setModalOpen , road_map_item}) => {
   //   handle modal form
   const onsubmit = async (data) => {
         const commentInfo = {
-             commentId : road_map_item?._id,
+             road_map_item_id : road_map_item?._id,
              userName : user?.displayName,
              userEmail : user?.email,
              photo : user?.photoURL,
