@@ -4,7 +4,7 @@ import { MdCancel, MdClose } from "react-icons/md";
 import useAuth from "../../Hooks/useAuth";
 import useAxiosSecure from "../../Hooks/useAxiosSecure";
 import toast from "react-hot-toast";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 const CommentModal = ({ setModalOpen , road_map_item}) => {
   const {
@@ -103,6 +103,11 @@ const CommentModal = ({ setModalOpen , road_map_item}) => {
         >
           <MdClose className="text-4xl"></MdClose>
         </div>
+
+        {/* show all comments */}
+                <div className="w-full ">
+                   <button  className=" w-full secondary_btn mt-4" >   <Link to='/all-comments'> see all comments </Link></button>
+                </div>
       </div>
     </div>
   );

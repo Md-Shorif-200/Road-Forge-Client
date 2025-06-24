@@ -3,8 +3,9 @@ import useAuth from '../../../Hooks/useAuth';
 import { useForm } from 'react-hook-form';
 import { IoSend } from "react-icons/io5";
 import useAxiosSecure from '../../../Hooks/useAxiosSecure';
+import toast from 'react-hot-toast';
 
-const NestedReplyForm = ({nestedReplyData,commentData}) => {
+const NestedReplyForm = ({nestedReplyData,commentData,setNestedReplyId,refetch}) => {
       
     // react hook form
      const {
@@ -35,12 +36,19 @@ const NestedReplyForm = ({nestedReplyData,commentData}) => {
             try {
                 const response = await axiosSecure.post('/api/comments',nestedReplyMessage);
                 const result = response.data;
-                console.log(result);
+                if(result.acknowledged && result.modifiedCount > 0){
+
+                   toast.success('your replied this comment')
+                   reset();
+                   setNestedReplyId(null)
+                   refetch()
+                   
+                }
                 
                 
             } catch (error) {
-                console.log(error);
-                
+                  toast.error(error.message)
+                        setNestedReplyId(null)
             }
           
       }

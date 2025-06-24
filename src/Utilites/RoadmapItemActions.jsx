@@ -7,6 +7,7 @@ import useAuth from '../Hooks/useAuth';
 import useAxiosSecure from '../Hooks/useAxiosSecure';
 import useRoadmapItem from '../Hooks/useRoadmapItem';
 import CommentModal from '../Pages/Road-map-item/CommentModal';
+import useComments from '../Hooks/useComments';
 
 
 const RoadmapItemActions = ({road_map_item}) => {
@@ -14,39 +15,36 @@ const RoadmapItemActions = ({road_map_item}) => {
         if(!road_map_item){
             return null
         }
-
+    
         
-        const { _id, title, description, status, comments, upvotes, name, address } =
+      const { _id, title, description, status, comments, upvotes, name, address } =
     road_map_item ;
-    const [roadmapItem,isLoading,refetch] = useRoadmapItem()
-
-       // call context api
+    
+    const [roadmapItem,isLoading,refetch] = useRoadmapItem();
+    const  [Comments] = useComments()
+    
+    // call context api
     const {user} = useAuth();
     // private api
     const axiosSecure = useAxiosSecure();
     // modal state
     const [modalOpen , setModalOpen] = useState(false);
-    const [close,setClose] = useState(true)
-
-    // //  if user not log in 
-    //  if(!user){
-    //    return toast.error('your are not log in.')
-    //  }
+  
 
     //    manage Upvote Functionality
     const handleUpvote = async (id) => {
 
-       //  if user not log in 
+      //  if user not log in 
           if(!user){
             return toast.error('your are not loged in.')
           }
           
-        const upVoteData = {
+          const upVoteData = {
             userName : user?.displayName,
             userEmail : user?.email,
             
-        }
-
+          }
+          
 
       
           try {
@@ -71,7 +69,6 @@ const RoadmapItemActions = ({road_map_item}) => {
     }
 
     // manage commentModal 
-
      const handleCommentModal = () => {
           //  if user not log in 
           if(!user){
@@ -81,7 +78,27 @@ const RoadmapItemActions = ({road_map_item}) => {
           setModalOpen(true)
      }
 
+    //  store total comment length
+         const getTotalCommets = (comment_item) => {
+                let total = 1;
+                    if(comment_item?.replies && comment_item?.replies?.length > 0){
+                            total = total + comment_item?.replies?.length;
+                    }
+                    comment_item?.replies?.forEach(reply => {
+                          if(reply?.nestedReplies && reply?.nestedReplies?.length > 0){
+                              total = total + reply?.nestedReplies?.length
+                          }
+                    });
 
+                    return total;
+              } 
+
+              // get total comments 
+    const totalComments = Comments.filter(data => data.road_map_item_id == _id).map((comment => getTotalCommets(comment))).reduce((a,b) => a + b,0);
+  
+
+      
+      
 
 
 
@@ -108,7 +125,7 @@ const RoadmapItemActions = ({road_map_item}) => {
                 {/* comment icon*/}
           <div className="comment text-2xl flex gap-x-2 items-center primary_text_color cursor-pointer group transition-all" onClick={handleCommentModal} >
             <FaComment className="transform transition-all duration-300 group-hover:scale-150"></FaComment>{" "}
-            {comments.length}
+                    {totalComments || 0}
           </div>
               </div>
                 

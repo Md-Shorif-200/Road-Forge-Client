@@ -12,7 +12,8 @@ const RoadMapDetails = () => {
       const [roadmapItem,isLoading,refetch] = useRoadmapItem();
 
       const myRoadMapData = roadmapItem.find(item => item?._id == id);
-
+            console.log(myRoadMapData);
+            
       // handle loading state
        if(isLoading){
          return <Loading></Loading>

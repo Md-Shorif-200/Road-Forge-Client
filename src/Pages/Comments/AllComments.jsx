@@ -9,6 +9,9 @@ import useAxiosSecure from "../../Hooks/useAxiosSecure";
 import Loading from "../../Components/Loading";
 import toast from "react-hot-toast";
 import ReplyMessage from "./ReplyMessage/ReplyMessage";
+import commentsNotFound  from '../../assets/no-comments-removebg-preview.png'
+import { Link } from "react-router-dom";
+import { CiLogout } from "react-icons/ci";
 
 const AllComments = () => {
     const {
@@ -92,9 +95,26 @@ const AllComments = () => {
     <div className="Common_bg_Class">
       <Navbar></Navbar>
 
-      {/* my Comments section */}
-      <div className="my_comment_section w-full min-h-screen mt-2  py-10 bg-white shadow-2xl rounded-lg">
-        <h1 className="text-xl sm:text-2xl mt-0 sm:mt-2 md:mt-4 mb-6 capitalize font-semibold px-[4%] ">
+           {
+             !Comments || Comments.length == 0 
+             ? 
+             
+             <div className="w-full min-h-screen flex justify-center items-center flex-col">  
+              
+                          <img src={commentsNotFound} alt="comments not found" className="w-1/2" />
+                           <div className="text-xl capitalize font-semibold text-gray-800 mt-6"> 
+                                <p>no comments here</p>
+                                   <Link className="text-black font-semibold mt-4  flex items-center gap-x-4  " to='/'>Go Home  <CiLogout className="text-3xl"></CiLogout> </Link>
+                             </div>
+                
+               </div>
+             
+             :
+             
+             <>
+             {/* my Comments section */}
+                <div className="my_comment_section w-full min-h-screen mt-2  py-10 bg-white shadow-2xl rounded-lg">
+        <h1 className="text-xl  mt-0 sm:mt-2 md:mt-4 mb-6 capitalize font-semibold px-[4%] ">
           {" "}
           All comments ( {Comments?.length || 0} )
         </h1>
@@ -116,6 +136,9 @@ const AllComments = () => {
                   </div>
                     {/* comments */}
                   <div className="user_comment w-full  pl-2  sm:pl-4 py-0">
+                                      <div className="road_map_item my-2">
+                                           <h3 className="text-base sm:text-lg capitalize font-semibold"> {data?.roadmapItemTitle}   <span className="text-gray-800 text-base">-{data?.roadmapAuthor}</span> </h3>
+                                      </div>
                               <div className="comment bg-[#F0F2F5] rounded-lg p-2">
                  <h3 className="text-lg font-semibold capitalize mb-1">
                       {" "}
@@ -190,7 +213,7 @@ const AllComments = () => {
 
                       <div className="show replies">
                          {
-                            replyMessageId === data?._id &&  <ReplyMessage commentData = {data} ></ReplyMessage>
+                            replyMessageId === data?._id &&  <ReplyMessage commentData = {data} refetch={refetch} ></ReplyMessage>
                          }
                       </div>
 
@@ -199,6 +222,8 @@ const AllComments = () => {
           })}
         </div>
       </div>
+              </>
+           }
     </div>
   );
 };

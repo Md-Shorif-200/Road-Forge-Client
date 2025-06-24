@@ -88,7 +88,11 @@ const MyComments = () => {
             <Navbar></Navbar>
 
             {/* my Comments section */}
-            <div className="my_comment_section w-full min-h-screen mt-2  py-2 sm:py-5 md:py-10 bg-white shadow-2xl rounded-lg">
+              {
+                  !myComment || myComment.length === 0 ? <div className="w-full min-h-screen flex justify-center items-center text-3xl capitalize text-shadow-gray-500"> You have not commented yet.  </div>
+                  :
+                  <>
+                   <div className="my_comment_section w-full min-h-screen mt-2  py-2 sm:py-5 md:py-10 bg-white shadow-2xl rounded-lg">
               <h1 className="text-lg sm:text-xl md:text-2xl mt-4 mb-6 capitalize font-semibold px-[4%] md:text-end">
                 {" "}
                 My comments ( {myComment?.length || 0} )
@@ -146,6 +150,8 @@ const MyComments = () => {
                 })}
               </div>
             </div>
+                  </>
+              }
           </div>
         </>
       )}

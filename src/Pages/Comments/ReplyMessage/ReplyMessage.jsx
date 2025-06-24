@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import NestedReplyForm from './NestedReplyForm';
 import NestedReplyCard from './NestedReplyCard';
 
-const ReplyMessage = ({commentData}) => {
+const ReplyMessage = ({commentData,refetch}) => {
 
     
             const replies = commentData.replies; // get replyMessage Data
@@ -74,7 +74,7 @@ const ReplyMessage = ({commentData}) => {
                                                 nestedReplyId === data?.id  ?
                                                 
                                                 <>
-                                                   <NestedReplyForm commentData={commentData} nestedReplyData = {data} ></NestedReplyForm>   
+                                                   <NestedReplyForm commentData={commentData} nestedReplyData = {data} setNestedReplyId={setNestedReplyId} refetch={refetch} ></NestedReplyForm>   
                                                 </>
                                                 : <></>
                                                }

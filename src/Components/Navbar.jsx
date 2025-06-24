@@ -5,6 +5,7 @@ import { MdLogout } from "react-icons/md";
 import { FaComment, FaComments, FaHome } from "react-icons/fa";
 import useComments from "../Hooks/useComments";
 import { RiArrowDropDownLine } from "react-icons/ri";
+import logo from '../assets/road-forge_logo-removebg-preview.png'
 
 
 const Navbar = () => {
@@ -27,8 +28,9 @@ const Navbar = () => {
   <div className="sticky top-0">
       <nav className=" bg-white  rounded-md  px-4 sm:px-8 md:px-10 py-6 shadow-md relative" >
       <div className="flex justify-between items-center">
-        <div className="logo">
-          <h1 className="font-semibold text-2xl primary_text_color">
+        <div className="logo flex items-center ">
+               <img src={logo} alt="nav-logo" className="w-14 h-14" />
+          <h1 className="font-semibold text-2xl ">
             roadForge
           </h1>
         </div>
