@@ -1,12 +1,9 @@
 
-# RoadForge - A Roadmap app
+# RoadForge 
+RoadForge is a full-stack collaborative roadmap application built using the MERN stack with a focus on user interaction. Users can upvote ideas, comment, and reply in nested threads. The clean UI is built with Tailwind CSS and React.
+
 ### live Link : https://road-forge.web.app/
 #### Server side github : https://github.com/Md-Shorif-200/Road-Forge-Server
-
-
-
-
-
 
 
 
