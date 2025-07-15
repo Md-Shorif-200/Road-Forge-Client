@@ -61,10 +61,10 @@ const Navbar = () => {
             </>
           ) : (
             <>
-              <Link to="/sign-up" className="sign_up_btn primary_btn hidden sm:block">
+              {/* <Link to="/sign-up" className="sign_up_btn primary_btn hidden sm:block">
                 sign up
-              </Link>
-              <Link to="/log-in" className=" primary_btn">
+              </Link> */}
+              <Link to="/log-in" className=" secondary_btn">
                 Log In
               </Link>
             </>

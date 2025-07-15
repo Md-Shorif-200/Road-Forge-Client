@@ -51,7 +51,7 @@ const CommentModal = ({ setModalOpen , road_map_item}) => {
             }
            
         } catch (error) {
-            console.log(error);
+  
             toast.error(error.message)
         }finally{
           // reset form

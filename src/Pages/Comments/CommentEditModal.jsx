@@ -46,7 +46,7 @@ const CommentEditModal = ({setOpen,myComment, commentId, refetch}) => {
                             }
                 
       } catch (error) {
-        console.log(error);
+   
         toast.error('something is wring. please try again!')
         
       }finally{

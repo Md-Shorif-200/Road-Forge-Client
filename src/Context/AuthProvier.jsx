@@ -17,12 +17,11 @@ export const AuthContext = createContext();
 const auth = getAuth(app);
 
 const AuthProvier = ({ children }) => {
-  const [user, setUser] = useState();
+  const [user, setUser] = useState('');
   const [loading, setLoading] = useState(true);
   const googleProvider = new GoogleAuthProvider();
   const axiosSecure = useAxiosSecure();
 
-  console.log(user);
 
   // Firebase observer
   useEffect(() => {

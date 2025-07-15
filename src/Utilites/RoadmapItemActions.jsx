@@ -52,7 +52,7 @@ const RoadmapItemActions = ({road_map_item}) => {
             // update roadmap-item data
             const response = await axiosSecure.patch(`/roadmap-item/upvote/${id}`,upVoteData);
             const upvoted = response.data;
-              console.log(response.data);
+      
                if(upvoted.acknowledged && upvoted.modifiedCount > 0){
                 // refetch data
                    refetch();
@@ -61,8 +61,7 @@ const RoadmapItemActions = ({road_map_item}) => {
 
             
           } catch (error) {
-            console.log(error);
-            
+         
             toast.error(error.response.data.message)
           }
               

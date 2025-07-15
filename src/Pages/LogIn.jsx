@@ -50,7 +50,7 @@ const LogIn = () => {
       toast.error(error.message);
     }
 
-    console.log(data);
+  
 
     reset();
   };

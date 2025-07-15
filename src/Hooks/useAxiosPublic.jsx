@@ -4,7 +4,7 @@ import React from 'react';
 const useAxiosPublic = () => {
 
     const axiosPublic = axios.create({
-        baseURL : 'http://localhost:5000/'
+        baseURL : 'https://road-forge-server.vercel.app/'
     })
    return axiosPublic
 };
